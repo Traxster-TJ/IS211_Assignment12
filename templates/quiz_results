@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h2>Results for Quiz: {{ quiz.subject }}</h2>
+  <p>Date: {{ quiz.quiz_date }}</p>
+  
+  {% if results %}
+    <table>
+      <thead>
+        <tr>
+          <th>Student ID</th>
+          {% if not anonymous %}
+            <th>Student Name</th>
+          {% endif %}
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for result in results %}
+          <tr>
+            <td>{{ result.student_id }}</td>
+            {% if not anonymous %}
+              <td>{{ result.first_name }} {{ result.last_name }}</td>
+            {% endif %}
+            <td>{{ result.score }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No results found for this quiz.</p>
+  {% endif %}
+  
+  {% if session.logged_in %}
+    <p><a href="{{ url_for('dashboard') }}">Back to Dashboard</a></p>
+  {% else %}
+    <p><a href="{{ url_for('login') }}">Log In</a></p>
+  {% endif %}
+{% endblock %}
