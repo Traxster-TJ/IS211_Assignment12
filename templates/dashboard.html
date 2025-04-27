@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h2>Dashboard</h2>
+  
+  <div class="links">
+    <a href="{{ url_for('add_student') }}">Add Student</a> | 
+    <a href="{{ url_for('add_quiz') }}">Add Quiz</a> | 
+    <a href="{{ url_for('add_result') }}">Add Quiz Result</a>
+  </div>
+  
+  <h3>Students</h3>
+  {% if students %}
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in students %}
+          <tr>
+            <td>{{ student.id }}</td>
+            <td>{{ student.first_name }}</td>
+            <td>{{ student.last_name }}</td>
+            <td><a href="{{ url_for('view_student_results', student_id=student.id) }}">View Results</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No students found.</p>
+  {% endif %}
+  
+  <h3>Quizzes</h3>
+  {% if quizzes %}
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Subject</th>
+          <th>Number of Questions</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for quiz in quizzes %}
+          <tr>
+            <td>{{ quiz.id }}</td>
+            <td>{{ quiz.subject }}</td>
+            <td>{{ quiz.num_questions }}</td>
+            <td>{{ quiz.quiz_date }}</td>
+            <td><a href="{{ url_for('view_quiz_results', quiz_id=quiz.id) }}">View Results</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No quizzes found.</p>
+  {% endif %}
+{% endblock %}
