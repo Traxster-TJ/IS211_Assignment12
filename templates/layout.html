@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Tracker</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            line-height: 1.4;
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+        }
+        h1, h2 { 
+            color: #333; 
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .flash {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+        }
+        .flash.success {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+        .error {
+            color: red;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            margin-bottom: 15px;
+            padding: 5px;
+            width: 300px;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .links {
+            margin: 20px 0;
+        }
+        .links a {
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz Tracker</h1>
+        
+        <div class="header">
+            {% if session.logged_in %}
+                <a href="{{ url_for('dashboard') }}">Dashboard</a> | 
+                <a href="{{ url_for('logout') }}">Log Out</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Log In</a>
+            {% endif %}
+        </div>
+
+        {% for message in get_flashed_messages() %}
+            <div class="flash">{{ message }}</div>
+        {% endfor %}
+        
+        {% block body %}{% endblock %}
+    </div>
+</body>
+</html>
