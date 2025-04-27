@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h2>Add Quiz Result</h2>
+  {% if error %}<div class="error"><p>{{ error }}</p></div>{% endif %}
+  
+  <form action="{{ url_for('add_result') }}" method="post">
+    <div>
+      <label for="student_id">Student:</label>
+      <select name="student_id" id="student_id" required>
+        <option value="">Select a student</option>
+        {% for student in students %}
+          <option value="{{ student.id }}">{{ student.first_name }} {{ student.last_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label for="quiz_id">Quiz:</label>
+      <select name="quiz_id" id="quiz_id" required>
+        <option value="">Select a quiz</option>
+        {% for quiz in quizzes %}
+          <option value="{{ quiz.id }}">{{ quiz.subject }} ({{ quiz.quiz_date }})</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label for="score">Score (0-100):</label>
+      <input type="number" name="score" id="score" min="0" max="100" required>
+    </div>
+    <div>
+      <button type="submit">Add Result</button>
+    </div>
+  </form>
+  
+  <p><a href="{{ url_for('dashboard') }}">Back to Dashboard</a></p>
+{% endblock %}
